@@ -2,12 +2,27 @@
   "name": "electron-todo",
   "version": "0.1.0",
   "private": true,
+  "author": "Joshua Allen",
+  "description": "Todo application",
+  "homepage": "./",
+  "main": "./public/electron.js",
   "dependencies": {
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
+    "@mui/icons-material": "^5.8.0",
+    "@mui/lab": "^5.0.0-alpha.82",
+    "@mui/material": "^5.8.0",
+    "@reduxjs/toolkit": "^1.8.1",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
     "@testing-library/user-event": "^13.5.0",
+    "electron-notarize": "^1.2.1",
+    "electron-updater": "^5.0.1",
+    "markdown-to-jsx": "^7.1.7",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
+    "react-redux": "^8.0.2",
+    "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
@@ -15,7 +30,17 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "publish": "electron-builder --mac --win -p always",
+    "electron:start": "concurrently -k \"cross-env BROWSER=none npm start\" \"wait-on http://localhost:3000 && electronmon .\"",
+    "electron:package:mac": "npm run build && electron-builder -m -c.extraMetadata.main=build/electron.js",
+    "electron:package:win": "npm run build && electron-builder -w -c.extraMetadata.main=build/electron.js",
+    "electron:package:linux": "npm run build && electron-builder -l -c.extraMetadata.main=build/electron.js"
+  },
+  "electronmon": {
+    "patterns": [
+      "!test/**"
+    ]
   },
   "eslintConfig": {
     "extends": [
@@ -25,14 +50,43 @@
   },
   "browserslist": {
     "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
+      "last 1 electron version"
     ],
     "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
+      "last 1 electron version"
     ]
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.2",
+    "autoprefixer": "^10.4.7",
+    "concurrently": "^7.2.0",
+    "cross-env": "^7.0.3",
+    "electron": "^18.2.4",
+    "electron-builder": "^23.0.3",
+    "electronmon": "^2.0.2",
+    "postcss": "^8.4.14",
+    "tailwindcss": "^3.0.24",
+    "wait-on": "^6.0.1"
+  },
+  "build": {
+    "appId": "com.electron.todoapplication",
+    "productName": "Todo Application",
+    "afterSign": "./build/notarize.js",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "public"
+    },
+    "mac": {
+      "target": "dmg"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "deb"
+    }
   }
 }
