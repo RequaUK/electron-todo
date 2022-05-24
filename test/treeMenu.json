@@ -1,1 +1,1 @@
-[{"id":1,"name":"Root","parentId":0},{"name":"New Child","id":2,"parentId":1}]
+[{"id":1,"name":"Rootyyy","parentId":0,"hasChildren":true},{"name":"Test child","id":2,"parentId":1,"hasChildren":false}]

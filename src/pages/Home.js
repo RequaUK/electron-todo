@@ -33,6 +33,7 @@ function Home() {
                     alignItems="center"
                 spacing={2}
                 className="h-full">
+                    Latest update lol
                 <ContentDisplay>
 
                 </ContentDisplay>
