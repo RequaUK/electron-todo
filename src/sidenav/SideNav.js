@@ -54,7 +54,7 @@ function SideNav() {
         var treeNodes = treeMenu.treeMenu.map((item) => ({
             ...item,
             hasChildren:
-                treeMenu.treeMenu.filter((i) => i.parentId === item.id).length > 0,
+                treeMenu.treeMenu.filter((i) => i.parentId === item.id && i.isActive !== false).length > 0,
         }));
 
         return treeNodes;

@@ -1,6 +1,6 @@
 {
   "name": "electron-todo",
-  "version": "2.1.5",
+  "version": "2.1.8",
   "private": true,
   "author": "Joshua Allen",
   "description": "Todo application",
